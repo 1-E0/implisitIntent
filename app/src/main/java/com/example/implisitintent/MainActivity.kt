@@ -9,7 +9,9 @@ import android.provider.AlarmClock
 import android.provider.CalendarContract
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import java.util.Calendar
 import java.util.TimeZone
@@ -20,7 +22,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val btnKirimPesan = findViewById<Button>(R.id.btnKirimPesan)
-
         btnKirimPesan.setOnClickListener {
             val _sendIntent = Intent().apply {
                 action = Intent.ACTION_SEND
@@ -51,7 +52,6 @@ class MainActivity : AppCompatActivity() {
 
         val btnOpenURL = findViewById<Button>(R.id.btnOpenURL)
         val _etURL = findViewById<EditText>(R.id.etURL)
-
         btnOpenURL.setOnClickListener {
             val _webIntent = Intent(
                 Intent.ACTION_VIEW,
@@ -62,32 +62,24 @@ class MainActivity : AppCompatActivity() {
             ) {
                 startActivity(_webIntent)
             } else {
-                Toast.makeText(
-                    this,
-                    "tidak ada aplikasi browser ditemukan",
-                    Toast.LENGTH_SHORT
-                ).show()
+                Toast.makeText(this, "tidak ada aplikasi browser ditemukan", Toast.LENGTH_SHORT).show()
             }
         }
 
         val btnSetEvent = findViewById<Button>(R.id.btnSetEvent)
-
         btnSetEvent.setOnClickListener {
             val calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Jakarta"))
             val year = calendar.get(Calendar.YEAR)
             val month = calendar.get(Calendar.MONTH)
             val day = calendar.get(Calendar.DAY_OF_MONTH)
-
             val hour = calendar.get(Calendar.HOUR_OF_DAY)
             val minute = calendar.get(Calendar.MINUTE)
 
             val datePickerDialog = DatePickerDialog(this, { _, selectedYear, selectedMonth, selectedDay ->
                 val timePickerDialog = TimePickerDialog(this, { _, selectedHour, selectedMinute ->
-
                     val selectedDateTime = Calendar.getInstance().apply {
                         set(selectedYear, selectedMonth, selectedDay, selectedHour, selectedMinute)
                     }
-
                     val endTime = selectedDateTime.clone() as Calendar
                     endTime.add(Calendar.HOUR_OF_DAY, 1)
 
@@ -101,13 +93,25 @@ class MainActivity : AppCompatActivity() {
                         putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endTime.timeInMillis)
                     }
                     startActivity(eventIntent)
-
                 }, hour, minute, true)
-
                 timePickerDialog.show()
             }, year, month, day)
-
             datePickerDialog.show()
+        }
+
+        val _ivHasil = findViewById<ImageView>(R.id.ivHasil)
+        val _btnGetPhoto = findViewById<Button>(R.id.btnGetPhoto)
+
+        val cameraLauncher = registerForActivityResult(
+            ActivityResultContracts.TakePicturePreview()
+        ) { bitmap ->
+            if (bitmap != null) {
+                _ivHasil.setImageBitmap(bitmap)
+            }
+        }
+
+        _btnGetPhoto.setOnClickListener {
+            cameraLauncher.launch(null)
         }
     }
 }

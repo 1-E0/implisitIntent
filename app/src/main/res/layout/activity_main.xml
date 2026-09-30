@@ -12,7 +12,6 @@
         android:layout_height="wrap_content"
         android:text="Kirim Pesan" />
 
-
     <Button
         android:id="@+id/btnSetAlarm"
         android:layout_width="match_parent"
@@ -55,4 +54,11 @@
         android:layout_height="200dp"
         android:layout_marginTop="16dp"
         android:contentDescription="@string/desc_iv_hasil" />
+
+    <Button
+        android:id="@+id/btnBukaMaps"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Buka Maps" />
+
 </LinearLayout>

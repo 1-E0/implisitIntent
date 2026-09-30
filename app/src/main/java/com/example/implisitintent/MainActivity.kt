@@ -1,9 +1,12 @@
 package com.example.implisitintent
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.provider.AlarmClock
 import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
@@ -40,5 +43,26 @@ class MainActivity : AppCompatActivity() {
             putExtra(AlarmClock.EXTRA_SKIP_UI, true)
         }
         startActivity(_timerIntent)
+
+        val btnOpenURL = findViewById<Button>(R.id.btnOpenURL)
+        val _etURL = findViewById<EditText>(R.id.etURL)
+
+        btnOpenURL.setOnClickListener {
+            val _webIntent = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("http://" + _etURL.text.toString())
+            )
+            if (_webIntent.resolveActivity(packageManager) != null ||
+                packageManager.queryIntentActivities(_webIntent, 0).isNotEmpty()
+            ) {
+                startActivity(_webIntent)
+            } else {
+                Toast.makeText(
+                    this,
+                    "tidak ada aplikasi browser ditemukan",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
     }
 }

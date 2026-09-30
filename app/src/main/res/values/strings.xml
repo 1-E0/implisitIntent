@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">implisitIntent</string>
+    <string name="title_implicit_intent">Implicit Intent Example</string>
+    <string name="btn_send_intent">Kirim Intent (SMS / Share)</string>
+</resources>

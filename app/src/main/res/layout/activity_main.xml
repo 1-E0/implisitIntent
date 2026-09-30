@@ -12,4 +12,17 @@
         android:layout_height="wrap_content"
         android:text="Kirim Pesan" />
 
+
+    <Button
+        android:id="@+id/btnSetAlarm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_set_alarm" />
+
+    <Button
+        android:id="@+id/btnSetTimer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_set_timer" />
+
 </LinearLayout>

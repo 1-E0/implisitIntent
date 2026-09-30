@@ -30,10 +30,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/btn_open_web" />
-    
+
     <EditText
         android:id="@+id/etURL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Masukkan URL" />
+
+    <Button
+        android:id="@+id/btnSetEvent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Set Event" />
 </LinearLayout>
